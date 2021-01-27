@@ -77,134 +77,14 @@ enum screen{
  * Prototypes
  ***********************************/
 
-/**
- * @brief Homescreen function
- *
- * Displays the home screen on master and slave devices, validates
- * user input, and switches screen according to user input.
- *
- * @param 	none.
- * @return 	state
- *
- * @note
- *
- * Revision History:
- * 	- 120121 MG: 	Creation Date
- */
 int homescreen_func();
-
-/**
- * @brief Display configuration
- *
- * Displays the configuration
- * from the structure.
- *
- * @param 	none.
- * @return 	none
- *
- * @note
- *
- * Revision History:
- * 	- 120121 MG: 	Creation Date
- */
 void display_config();
-
-/**
- * @brief System configuration function
- *
- * Displays the system configuration screen,validates
- * refresh rate, and stores the valid refresh rate into structure.
- *
- * @param 	none.
- * @return 	HOMESCREEN
- *
- * @note
- *
- * Revision History:
- * 	- 120121 MG: 	Creation Date
- */
 int systemconfig_func();
-
-/**
- * @brief Pattern Configuration function
- *
- * Displays the pattern screen, validates user input
- * and switches screen according to user input.
- *
- * @param 	none.
- * @return 	state
- *
- * @note
- *
- * Revision History:
- * 	- 120121 MG: 	Creation Date
- */
 int patternconfig_func();
-
-/**
- * @brief Colour configuration function
- *
- * Displays the colour configuration screen,validates start colour,end colour
- * and step size, and stores the valid entries into structure.
- *
- * @param 	none.
- * @return 	PATTERNCONFIG_SCREEN
- *
- * @note
- *
- * Revision History:
- * 	- 120121 MG: 	Creation Date
- */
 int colour_config();
-
-/**
- * @brief Mode configuration function
- *
- * Displays the mode configuration screen,validates mode, change rate
- * and number of cycles, and stores the valid entries into structure.
- *
- * @param 	none.
- * @return 	PATTERNCONFIG_SCREEN
- *
- * @note
- *
- * Revision History:
- * 	- 120121 MG: 	Creation Date
- */
 int mode_config();
-
-/**
- * @brief Direction configuration function
- *
- * Displays the direction configuration screen,validates
- * direction, and stores the valid entriy into structure.
- *
- * @param 	none.
- * @return 	PATTERNCONFIG_SCREEN
- *
- * @note
- *
- * Revision History:
- * 	- 120121 MG: 	Creation Date
- */
 int direction_config();
-
-/**
- * @brief Execution function
- *
- * Displays the execution screen on master and slave devices,
- * displays current status of the led operation, validates user input
- * and switches screen according to user input.
- *
- * @param 	none.
- * @return 	state
- *
- * @note
- *
- * Revision History:
- * 	- 120121 MG: 	Creation Date
- */
 int execution_func();
-
 void config_task(void *pvParameters);
+
 #endif /* STATEMACHINE_H_ */
