@@ -36,6 +36,7 @@
 /***********************************
  * External Variable Declarations
  ***********************************/
+
 config_ascii_t curr_config;
 command_ascii_t cmd_ascii;
 extern QueueHandle_t config_queue;
@@ -93,6 +94,7 @@ void get_default_config(config_ascii_t *config){
     /* Initializes the configure structure to null. */
     memset(config, '\0', sizeof(*config));
 
+
     config->data_id ='0';
 	config->color_code = '3';
 
@@ -108,16 +110,15 @@ void get_default_config(config_ascii_t *config){
 	config->end_color[2] = '0';
 
 	config->step_size = '2';
-	config->mode = '2';
-
+	config->mode = AUTO;
+	
 	config->change_rate[0] ='0';
 	config->change_rate[1] ='5';
 	config->change_rate[2] ='0';
 
 	config->cycles[0] = '0';
 	config->cycles[1] = '0';
-
-	config->direction = '1';
+	config->direction = UP;
 }
 /**
  * @brief saves new configuration to the structure.
@@ -195,7 +196,7 @@ static int startcolor_update(uint8_t *data)
 	for(int i=0;i<sizeof(curr_config.start_color);i++){
 		curr_config.start_color[i]=*(data+2*i);
 	}
-	return 0;
+	return SUCCESS;
 }
 /**
  * @brief update new value to the end color.
@@ -216,7 +217,7 @@ static int endcolor_update(uint8_t *data)
 	for(int i=0;i<sizeof(curr_config.end_color);i++){
 		curr_config.end_color[i]=*(data+2*i);
 	}
-	return 0;
+	return SUCCESS;
 }
 /**
  * @brief update new value to the step size.
@@ -235,7 +236,7 @@ static int endcolor_update(uint8_t *data)
 static int stepsize_update(uint8_t *data)
 {
 	curr_config.step_size=*data;
-	return 0;
+	return SUCCESS;
 }
 /**
  * @brief update new value to the mode configuration.
@@ -254,7 +255,7 @@ static int stepsize_update(uint8_t *data)
 static int mode_update(uint8_t *data)
 {
 	curr_config.mode=*data;
-	return 0;
+	return SUCCESS;
 }
 /**
  * @brief update new value to the no: of cycles.
@@ -275,7 +276,7 @@ static int cycles_update(uint8_t *data)
 	for(int i=0;i<sizeof(curr_config.cycles);i++){
 	curr_config.cycles[i]=*(data+i);
 	}
-	return 0;
+	return SUCCESS;
 }
 /**
  * @brief update new value to the change rate.
@@ -296,7 +297,7 @@ static int changerate_update(uint8_t *data)
 	for(int i=0;i<sizeof(curr_config.change_rate);i++){
 		curr_config.change_rate[i]=*(data+i);
 	}
-	return 0;
+	return SUCCESS;
 }
 /**
  * @brief update new value to the direction.
@@ -315,7 +316,7 @@ static int changerate_update(uint8_t *data)
 static int direction_update(uint8_t *data)
 {
 	curr_config.direction=*data;
-	return 0;
+	return SUCCESS;
 }
 /**
  * @brief update new value to the refresh rate.
@@ -336,7 +337,7 @@ static int refreshrate_update(uint8_t *data)
 	for(int i=0;i<sizeof(curr_config.refresh_rate);i++){
 		curr_config.refresh_rate[i]=*(data+i);
 	}
-	return 0;
+	return SUCCESS;
 }
 /**
  * @brief saves new command to the commamd_struct.
@@ -358,7 +359,7 @@ int update_cmd_struct(uint8_t data)
 	cmd_ascii.data_id='1';
 	cmd_ascii.command=data;
 
-	return 0;
+	return SUCCESS;
 }
 /**
  * @brief sends the configuration to other task
@@ -407,20 +408,20 @@ BaseType_t send_cmd_pg()
  * and stores it to the status_data array and
  * returns the same array.
  *
- * @param 	pointer to status queue.
+ * @param 	pointer to get the current status
  * @return 	status_data array
  *
  * @note
  *
  * Revision History:
  * 	- 190121 DA: 	Creation Date
+ * 	- 200121 DA:   Modified delay time
  */
 BaseType_t receive_status_pg(uint8_t* current_status)
 {
 	BaseType_t xstatus;
 	xstatus=xQueueReceive(status_queue,current_status,BLOCKING_TIME_STATUS_Q);
 	if(xstatus==pdPASS){
-		xQueueReset(status_queue);
 		return SUCCESS;
 	}
 	return FAIL;
@@ -443,14 +444,14 @@ BaseType_t receive_status_pg(uint8_t* current_status)
  */
 int reverse_direction()
 {
-	if(curr_config.direction == '1')
-		curr_config.direction = '2';
-	else if(curr_config.direction == '2')
-		curr_config.direction = '1';
-	else if(curr_config.direction == '3')
-		curr_config.direction = '4';
+	if(curr_config.direction == UP)
+		curr_config.direction = DOWN;
+	else if(curr_config.direction == DOWN)
+		curr_config.direction = UP;
+	else if(curr_config.direction == UPDOWN)
+		curr_config.direction = DOWNUP;
 	else
-		return 1;
+		return FAIL;
 
-	return 0;
+	return SUCCESS;
 }
