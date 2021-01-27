@@ -193,13 +193,14 @@ void display_config(){
 int systemconfig_func()
 {
 	print_data((uint8_t*)SYS_CONFIG,sizeof(SYS_CONFIG));
-	print_message("\tCurrent refresh rate\t:\t");
+	print_message("\tCurrent refresh rate (in ms)\t:\t");
 	print_data(curr_config.refresh_rate,sizeof(curr_config.refresh_rate));
+	print_message(QUIT);
 	print_message("\n\r");
 	uint8_t data,i;
 	uint8_t buff[MAX_SIZE_REFRESH];
 	memset(&buff[0],'\0', sizeof(buff));
-	char get1[] = "\r\nEnter refresh rate\t->\t";
+	char get1[] = "\r\nEnter refresh rate (1-99)\t->\t";
 
 
 	while(1) {
@@ -362,15 +363,17 @@ int mode_config()
 	uint8_t data,i;
 	print_data((uint8_t*)MODE_CONFIG,sizeof(MODE_CONFIG));
 	print_message("\n\rCurrent Mode Setting\t:\n\r");
-	print_message("\n\r\tMode\t\t\t:\t");
+	print_message("\n\r\tMode\t\t\t\t:\t");
 	if (curr_config.mode == '1') {
 		print_message("Manual");
 	} else if (curr_config.mode == '2') {
 		print_message("Automatic");
-		print_message("\n\r\tCycle\t\t\t:\t");
+		print_message("\n\r\tCycle\t\t\t\t:\t");
 		print_data(curr_config.cycles,sizeof(curr_config.cycles));
-		print_message("\n\r\tChange Rate (in 10 ms)\t:\t");
+		print_message("\n\r\tChange Rate (in 10 ms)\t\t:\t");
 		print_data(curr_config.change_rate,sizeof(curr_config.change_rate));
+		print_message("\n\r\tCurrent refresh rate (in ms)\t:\t");
+		print_data(curr_config.refresh_rate,sizeof(curr_config.refresh_rate));
 	}
 	print_message(QUIT);
 	print_message(BACK);
@@ -646,7 +649,7 @@ int execution_func()
 	uint8_t data ;
 	 int8_t cycles_hex = DEFAULT_VALUE;
 	 int8_t cycles_ascii[2];
-	uint8_t current_status[5],value[1];
+	uint8_t current_status[5];
 	if ((is_master==1)) {
 		uint8_t device_status[] = "Master\n\r";
 		print_data((uint8_t *)MAIN_HEADING,sizeof(MAIN_HEADING));
@@ -701,8 +704,7 @@ int execution_func()
 
 			print_message(COLOUR_STATUS);
 			for(int i=0;;i++) {
-				memcpy(&value,&current_status[i],1);
-				print_data(value,1);
+				print_data(&current_status[i],1);
 				if(i==2)
 					break;
 				print_message(",");
@@ -714,8 +716,7 @@ int execution_func()
 			if (curr_config.mode == '2' &&  cycles_hex != 0) {
 				print_message(CYCLE_STATUS);
 				for(int i=3;i<5;i++){
-					memcpy(&value,&current_status[i],1);
-					print_data(value,1);
+					print_data(&current_status[i],1);
 				}
 			}
 		}
