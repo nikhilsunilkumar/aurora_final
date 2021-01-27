@@ -21,34 +21,18 @@
  * Typedefs and Enum Declarations
  ***********************************/
 //none
-
-/***********************************
- * External Variable Declarations
- ***********************************/
-// none
-
 /***********************************
  * Const Declarations
  ***********************************/
 // none
+/*********************************** 
+* Variable Declarations 
+***********************************/ 
+// none 
+/*********************************** 
+* Prototypes 
+***********************************/ 
 
-/***********************************
- * Public Variables
- ***********************************/
-//none
-/***********************************
- * Private Variables
- ***********************************/
-// none
-
-/***********************************
- * Private Prototypes
- ***********************************/
-// none
-
-/***********************************
- * Public Functions
- ***********************************/
 void pattern_generator(int8_t *current_color,config_hex_t* xconfig_hex);
 void pattern_log_off();
 int8_t update_current_color_up(config_hex_t* xconfig,int8_t* current_colorinitial);
