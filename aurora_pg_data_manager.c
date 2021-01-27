@@ -62,7 +62,7 @@ extern QueueHandle_t status_queue;
 
 
 /**
- * @brief config_hex_t ascii_to_hex_converter(config_ascii_t * xconfig_ascii)
+ * @brief it converts the  ascii values to hex value
  *
  *
  *
@@ -99,14 +99,14 @@ config_hex_t ascii_to_hex_converter(config_ascii_t * xconfig_ascii){
 	xconfig_hex.end_color[1]		=	xconfig_ascii->end_color[1]   - 48;
 	xconfig_hex.end_color[2]		=	xconfig_ascii->end_color[2]   - 48;
 	xconfig_hex.step_size			=	xconfig_ascii->step_size      - 48;
-	xconfig_hex.mode				=	xconfig_ascii->mode			  - 48;
+	xconfig_hex.mode			=	xconfig_ascii->mode	  - 48;
 	xconfig_hex.direction 			=   xconfig_ascii->direction	  - 48;
 	return xconfig_hex;
 
 }
 
 /**
- * @brief send_to_queue_blocking( xQueue,byte_to_send)
+ * @brief sends config task via queue non blocking type
  *
  *
  *
@@ -114,7 +114,7 @@ config_hex_t ascii_to_hex_converter(config_ascii_t * xconfig_ascii){
  *
  * @return
  *
- * @note it is used to send to queue from the task:blocking type
+ * @note it is used to send to queue from the task:non blocking type
  *
  * Revision History:
  * 	- 190121 MAP: 	Creation Date
@@ -129,16 +129,16 @@ BaseType_t send_config_task(config_ascii_t* xconfig_ascii)
 
 
 /**
- * @brief BaseType_t receive_config_task_non_blocking()
+ * @brief receive from queue blocking type which waits for infinite time
  *
  *
  *
- * @param
+ * @param config_ascii_t
  *
  *
- * @return
+ * @return pdTRUE/pdFALSE
  *
- * @note it is non blocking type send to queue
+ * @note it is  blocking type receive from queue
  *
  * Revision History:
  * 	- 190121 MAP: 	Creation Date
@@ -158,7 +158,7 @@ BaseType_t receive_config_task_blocking(config_ascii_t* xconfig_ascii)
 }
 
 /**
- * @brief BaseType_t send_command_to_task(command_ascii_t* xcommand_ascii)
+ * @brief sends command to task(non blocking type)
  *
  *
  *
@@ -184,8 +184,7 @@ BaseType_t send_command_to_task(command_ascii_t* xcommand_ascii)
 }
 
 /**
- * @brief BaseType_t receive_command_to_task(command_ascii_t* xcommand_ascii)
- *
+ * @brief receive command from task: non blocking type
  *
  *
  * @param command_ascii_t* xcommand_ascii
@@ -213,7 +212,7 @@ BaseType_t receive_command_from_task(command_ascii_t* xcommand_ascii)
 }
 
 /**
- * @brief BaseType_t send_status_to_task(command_ascii_t* xcommand_ascii)
+ * @brief send status via status queue
  *
  *
  *
@@ -239,7 +238,7 @@ BaseType_t send_status_to_task(status_ascii_t* xstatus_ascii)
 	return pdTRUE;
 }
 /**
- * @brief BaseType_t receive_status_from_task(status_ascii_t* xstatus_ascii)
+ * @briefreceive status from task
  *
  *
  *
@@ -264,7 +263,7 @@ BaseType_t receive_status_from_task(uint8_t* current_status)
 
 
 /**
-  @brief hex_to_ascii_converter(status_hex_t  xstatus_hex)
+  @brief hconverts hex to ascii
  *
  *
  *
