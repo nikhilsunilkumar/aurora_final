@@ -2,7 +2,7 @@
  * pattern_generator.c
  *
  *  Created on: 13-Jan-2021
- *      Author: dct
+ *      Author: NIKHIL
  */
 #include <stdio.h>
 #include "board.h"
@@ -62,12 +62,13 @@ extern QueueHandle_t status_queue;
  * Public Functions
  ***********************************/
 /**
- * @brief void pattern_generator(int8_t *current_color)
+ * @brief generate pattern according to the configuration as well as current color
  *
  *
  *
  * @param  int8_t *current_color It will contain the current color configuration by which the pattern is to be generated.
- *
+ * @param config_hex will contain the configuration data
+ 
  * @return void
  *
  * @note  This function will generate led pattern based on the current color received.
@@ -824,7 +825,7 @@ void down_up_direction(config_hex_t* xconfig_hex, command_ascii_t* xcommand_asci
 
 }
 
-/* @brief switch_led_off()
+/* @brief it stops the LED,timer and also reset the status queue.
  *
  *
 
