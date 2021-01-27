@@ -63,50 +63,19 @@ uint8_t current_color[3];
 uint8_t cycles_left[2];
 }status_ascii_t;
 
-/***********************************
- * External Variable Declarations
- ***********************************/
-// none
 
 /***********************************
  * Const Declarations
  ***********************************/
 // none
 
-/***********************************
- * Public Variables
- ***********************************/
-//none
-/***********************************
- * Private Variables
- ***********************************/
-// none
-
-/***********************************
- * Private Prototypes
- ***********************************/
-// none
-
-/***********************************
- * Public Functions
- ***********************************/
-
-/**
- * @brief config_hex_t ascii_to_hex_converter(config_ascii_t * xconfig_ascii)
- *
- *
- *
- * @param  config_ascii_t * xconfig_ascii
- *
- *
- * @return 	config_hex_t
- *
- * @note  This function will convert the ascii data into hex data and store it into config_hex_t type struct and returns it.
- *
- * Revision History:
- * 	- 140121 MAP: 	Creation Date
- */
-
+/*********************************** 
+* Variable Declarations 
+***********************************/ 
+// none 
+/*********************************** 
+* Prototypes 
+***********************************/
 config_hex_t ascii_to_hex_converter(config_ascii_t * xconfig_ascii);
 status_ascii_t hex_to_ascii_converter(status_hex_t * xstatus_hex);
 
