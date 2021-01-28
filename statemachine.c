@@ -372,8 +372,6 @@ int mode_config()
 		print_data(curr_config.cycles,sizeof(curr_config.cycles));
 		print_message("\n\r\tChange Rate (in 10 ms)\t\t:\t");
 		print_data(curr_config.change_rate,sizeof(curr_config.change_rate));
-		print_message("\n\r\tCurrent refresh rate (in ms)\t:\t");
-		print_data(curr_config.refresh_rate,sizeof(curr_config.refresh_rate));
 	}
 	print_message(QUIT);
 	print_message(BACK);
@@ -429,6 +427,8 @@ int mode_config()
 			}else if(response==COMPARE_FAIL){
 				print_message(ERROR_MSG);
 				print_message("Change rate should be a multiple of refresh rate.\n\r");
+				print_message("\n\rCurrent refresh rate (in ms)\t:\t");
+				print_data(curr_config.refresh_rate,sizeof(curr_config.refresh_rate));
 				continue;
 			}
 			break;
